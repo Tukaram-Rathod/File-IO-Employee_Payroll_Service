@@ -81,4 +81,14 @@ public class EmployeePayrollServiceTest {
         Assert.assertTrue(maxSalaryByGender.get("M").equals(3000000.00) && maxSalaryByGender.get("F").equals(3000000.00));
         Assert.assertTrue(countSalaryByGender.get("M").equals(2) && countSalaryByGender.get("F").equals(1));
     }
+    //JDBC UC-7
+    @Test
+    public void givenNewEmployee_whenAdded_shouldSyncWithDB(){
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readEmployeePayrollDataDB(DB_IO);
+        employeePayrollService.readEmployeePayrollData(DB_IO);
+        employeePayrollService.addEmployeeToPayroll("Mark","M", 6000000.00, LocalDate.now());
+        boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Mark");
+        Assert.assertTrue(result);
+    }
 }

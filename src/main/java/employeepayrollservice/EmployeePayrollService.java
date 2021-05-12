@@ -114,15 +114,31 @@ public class EmployeePayrollService {
             return employeePayrollDBService.getCountSalaryByGender();
         return null;
     }
+    //UC-7
+    public void addEmployeeToPayroll(String name, String gender, double salary, LocalDate startDate) {
+        employeePayrollDataList.add(employeePayrollDBService.addEmployeeToPayroll(name,gender,salary,startDate));
+    }
 
-
-    // method to print entries from a file
-    public void printData(IOService fileIo){
-        if(fileIo.equals(IOService.FILE_IO))
+    //UC5 Ability for Employee Payroll Service to print the Employee Payrolls
+    public void printData(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO))
             new EmployeePayrollFileIOService().printData();
     }
+
+//    public long countEntries(IOService ioService) {
+//        if (ioService.equals(IOService.FILE_IO))
+//            return new EmployeePayrollFileIOService().countEntries();
+//        return 0;
+//    }
+
+
+//    // method to print entries from a file
+//    public void printData(IOService fileIo){
+//        if(fileIo.equals(IOService.FILE_IO))
+//            new EmployeePayrollFileIOService().printData();
+//    }
     //method to count entries
-    public long countEntries(IOService fileIo) {
+    public long countEntries(IOService ioService) {
         long entries = 0;
         try {
             entries = Files.lines(new File("payroll-file.txt").toPath()).count();
