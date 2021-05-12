@@ -32,8 +32,11 @@ public class NIOFileAPITest {
         IntStream.range(1,10).forEach(cntr -> {
             Path tempFile = Paths.get(playpath + ".temp"+cntr);
             Assert.assertTrue(Files.notExists(tempFile));
-            try{Files.createFile(tempFile);}
-            catch (IOException e){}
+            try{
+                Files.createFile(tempFile);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
             Assert.assertTrue(Files.exists(tempFile));
         });
 

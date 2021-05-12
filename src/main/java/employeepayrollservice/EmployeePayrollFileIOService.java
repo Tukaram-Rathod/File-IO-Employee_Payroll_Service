@@ -23,6 +23,16 @@ public class EmployeePayrollFileIOService {
         }
     }
 
+    //method to print entries in a file
+    public void printData() {
+        try{
+            Files.lines(new File(PAYROLL_FILE_NAME).toPath())
+                    .forEach(System.out::println);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     //method to count entries in a file
     public long countEntries() {
         long entries = 0;
@@ -33,28 +43,17 @@ public class EmployeePayrollFileIOService {
         }
         return entries;
     }
-    //method to print entries in a file
-    public void printData() {
-        try{
+
+    //method to read employee data from file,store it in list and return list
+    public List<EmployeePayrollData> readData(){
+        List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
+        try {
             Files.lines(new File(PAYROLL_FILE_NAME).toPath())
+                    .map(String::trim)
                     .forEach(System.out::println);
         }catch (IOException e){
             e.printStackTrace();
         }
-    }
-    //method to read employee data from file,store it in list and return list
-    public List<String> readData(){
-        List<String> employeeList = new ArrayList<>();
-        try {
-            Files.lines(new File(PAYROLL_FILE_NAME).toPath()).map(line -> line.trim())
-                    .forEach(line -> {
-                        employeeList.add(line);
-                        System.out.println(line);
-
-                    });
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return employeeList;
+    return employeePayrollDataList;
     }
 }

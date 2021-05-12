@@ -24,7 +24,7 @@ public class Java8WatchServiceExample {
         WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
         dirWatchers.put(key, dir);
     }
-
+    //scan and register directories with the WatchService
     private void scanAndRegisterDirectories(final Path start) throws IOException {
         //register directory and sub-directories
         Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
