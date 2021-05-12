@@ -9,7 +9,7 @@ public class DBClass {
     public static void main(String[] args) {
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?useSSL=false";
         String userName = "root";
-        String passWord = "12345";
+        String passWord = "root";
         Connection connection;
         try{
             Class.forName("com.mysql.jdbc.Driver");
