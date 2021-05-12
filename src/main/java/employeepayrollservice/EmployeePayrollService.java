@@ -2,11 +2,10 @@ package employeepayrollservice;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-//import static employeepayrollservice.EmployeePayrollDBService.employeePayrollDBService;
 
 public class EmployeePayrollService {
 
@@ -30,7 +29,6 @@ public class EmployeePayrollService {
     }
 
     //UC-3
-    //JDBC UC -3
     public void updateEmployeeSalary(String name, double salary) {
         int result =new EmployeePayrollDBService().updateEmployeeData(name,salary);
         if(result == 0)
@@ -75,6 +73,17 @@ public class EmployeePayrollService {
             this.employeePayrollDataList = new EmployeePayrollFileIOService().readData();
         return employeePayrollDataList.size();
     }
+
+    //UC-5
+    public List<EmployeePayrollData> readEmployeePayrollDataForDateRange(IOService ioService, LocalDate startDate, LocalDate endDate) {
+        if(ioService.equals(IOService.DB_IO))
+            return employeePayrollDBService.getEmployeePayrollForDateRange(startDate,endDate);
+        return null;
+    }
+    public List<EmployeePayrollData> getEmployeePayrollForDateRange(LocalDate startDate, LocalDate endDate) {
+        return employeePayrollDBService.getEmployeePayrollForDateRange(startDate,endDate);
+    }
+
     // method to print entries from a file
     public void printData(IOService fileIo){
         if(fileIo.equals(IOService.FILE_IO))
