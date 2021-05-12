@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static employeepayrollservice.EmployeePayrollService.IOService.DB_IO;
 import static employeepayrollservice.EmployeePayrollService.IOService.FILE_IO;
@@ -61,5 +62,23 @@ public class EmployeePayrollServiceTest {
         LocalDate endDate = LocalDate.now();
         List<EmployeePayrollData> employeePayrollData = employeePayrollService.getEmployeePayrollForDateRange(startDate,endDate);
         Assert.assertEquals(3,employeePayrollData.size());
+    }
+    //UC-6
+    @Test
+    public void givenPayrollData_whenAverageSalaryRetrievedByGender_shouldReturnProperValue(){
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readEmployeePayrollDataDB(DB_IO);
+
+        Map<String,Double> salarySumByGender = employeePayrollService.readSalarySumByGender(DB_IO);
+        Map<String,Double> averageSalaryByGender = employeePayrollService.readAverageSalaryByGender(DB_IO);
+        Map<String,Double> minSalaryByGender = employeePayrollService.readMinSalaryByGender(DB_IO);
+        Map<String,Double> maxSalaryByGender = employeePayrollService.readMaxSalaryByGender(DB_IO);
+        Map<String,Integer> countSalaryByGender = employeePayrollService.readCountSalaryByGender(DB_IO);
+
+        Assert.assertTrue(salarySumByGender.get("M").equals(4000000.00) && salarySumByGender.get("F").equals(3000000.00));
+        Assert.assertTrue(averageSalaryByGender.get("M").equals(2000000.00) && averageSalaryByGender.get("F").equals(3000000.00));
+        Assert.assertTrue(minSalaryByGender.get("M").equals(1000000.00) && minSalaryByGender.get("F").equals(3000000.00));
+        Assert.assertTrue(maxSalaryByGender.get("M").equals(3000000.00) && maxSalaryByGender.get("F").equals(3000000.00));
+        Assert.assertTrue(countSalaryByGender.get("M").equals(2) && countSalaryByGender.get("F").equals(1));
     }
 }
