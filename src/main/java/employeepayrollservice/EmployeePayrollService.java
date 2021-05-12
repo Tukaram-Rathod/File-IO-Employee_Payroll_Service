@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
+
     public enum IOService{CONSOLE_IO,FILE_IO,DB_IO,REST_IO}
     private List<EmployeePayrollData> employeePayrollDataList;
 
@@ -15,6 +16,11 @@ public class EmployeePayrollService {
 
     public EmployeePayrollService(List<EmployeePayrollData> employeePayrollDataList){
         this.employeePayrollDataList = employeePayrollDataList;
+    }
+    public List<EmployeePayrollData> readEmployeePayrollDataDB(IOService ioService){
+        if(ioService.equals(IOService.DB_IO))
+            this.employeePayrollDataList = new EmployeePayrollDBService().readData();
+        return this.employeePayrollDataList;
     }
 
     public void readEmployeePayrollData(Scanner consoleInputReader) {
@@ -37,7 +43,7 @@ public class EmployeePayrollService {
     //method to read data on console
     public long readEmployeePayrollData(IOService ioService) {
         if(ioService.equals(IOService.FILE_IO))
-           this.employeePayrollDataList = new EmployeePayrollFileIOService().readData();
+            this.employeePayrollDataList = new EmployeePayrollFileIOService().readData();
         return employeePayrollDataList.size();
     }
     // method to print entries from a file

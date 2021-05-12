@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
+import static employeepayrollservice.EmployeePayrollService.IOService.DB_IO;
 import static employeepayrollservice.EmployeePayrollService.IOService.FILE_IO;
 
 public class EmployeePayrollServiceTest {
@@ -22,5 +24,12 @@ public class EmployeePayrollServiceTest {
         employeePayrollService.printData(EmployeePayrollService.IOService.FILE_IO);
         long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.FILE_IO);
         Assert.assertEquals(3,entries);
+    }
+
+    @Test
+    public void givenEmployeePayrollInDB_whenRetrieved_shouldMatchEmployeeCount(){
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollData = employeePayrollService.readEmployeePayrollDataDB(DB_IO);
+        Assert.assertEquals(3,employeePayrollData.size());
     }
 }
