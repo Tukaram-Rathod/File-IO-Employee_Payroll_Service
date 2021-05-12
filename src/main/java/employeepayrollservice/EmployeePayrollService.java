@@ -19,6 +19,7 @@ public class EmployeePayrollService {
     }
 
     public EmployeePayrollService(List<EmployeePayrollData> employeePayrollDataList){
+        this();
         this.employeePayrollDataList = employeePayrollDataList;
     }
     //UC-2
